@@ -1,0 +1,132 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<title>Generic Page - Massively by HTML5 UP</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	  </script>
+	  <script type="text/javascript"
+		src="http://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	  </script>
+</head>
+
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Nav -->
+		<!-- Nav -->
+		<nav id="nav">
+			<ul class="links">
+				<li><a href="index.html">Home</a></li>
+				<li class=><a href="about.html">About</a></li>
+			</ul>
+			<ul class="icons">
+				<li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+				<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+			</ul>
+		</nav>
+
+		<!-- Main -->
+		<div id="main">
+
+			<!-- Post -->
+			<section class="post">
+				<header class="major">
+					<span class="date">November 15, 2022</span>
+					<h2><a href="see_with_ear.html">See with your ears:<br />
+							Combining object detection and binaural sound</a></h2>
+					<p>Humans have the amazing ability to localize sound sources around them.
+						In this project, I am trying to find out if this abiliy can be combined with
+						recent object detection and localization algorithms to enable a visually impaired person to hear
+						their environment. The idea here is to give each object a specific sound.</p>
+				</header>
+				<div class="image main"><img src="images/pic01.jpg" alt="" /></div>
+				<p>The human brain is able to localize a sound source by utilizing auditory cues such as differences in the timing and intensities.
+				   These cues depend on many parameters such as the shape and size of the ear and the head. 
+				   One way of capturing sound without losing these cues is binaural recording. Although it is now more than 15 years old, 
+				   <a href="https://www.youtube.com/watch?v=IUDTlvagjJA">this demo</a> is the best binaural sound recording I came across. 
+				   Esentially, it is an immensive auditory virtual environment, simulating a barbershop (make sure you use stereo headphones). 
+				</p>
+				<p>If you are still not convinsed that, at least in theory, converting visual information into auditory information by using the human sound localization ability, 
+					watch <a href="https://www.youtube.com/watch?v=08smCjKWNL0">this video</a> by Be Smart, 
+					which shows that meany visually impaired people learn to use auditory cues to navigate their environment.</p>
+				<h3>1. Mathematical Modeling of Binaural Sound</h3>
+				<p>The question is now, how to make a "normal" sound recording sound like it is coming from a certain location in space?<br/>
+				   We are lucky since there are many datasets containing the <b>Head-related Impus Response</b> or the <b>Head Related Transfer Function (HRTF)</b> in various settings. 
+				   HRTF is the Fourier Transofrmation of the HRIR. They are basically functions that decribe how properties such as the shape and size of the ear and head modify the sounds to sounds that we hear. <br/>
+				  So given a (mono) sound signal $s(t)$ coming from a ditrection, with the elevation $\theta$ and azimuth $\phi$ realtive to the head, 
+				  the left and right channel of a perceived sound can be calculated as follows:
+				  $$s^{left}_{\text{percieved}} = hrir^{left}_{\theta, \phi}(t) * s(t) $$  
+				  $$s^{right}_{\text{percieved}} = hrir^{right}_{\theta, \phi}(t) * s(t) $$  
+				</p>
+				where $hrir^{left/right}_{\theta, \phi}(t)$ is impulse response resulting from an impulse coming from the direction defined by $\theta, \phi$.
+				<p>
+				   In this porject we use the HRIR dataset 
+				   <a href="https://sound.media.mit.edu/resources/KEMAR.html">"HRTF Measurements of a KEMAR Dummy-Head Microphone"</a> provided by MIT media Lab.  	
+				</p>
+				<h3>2. Object Detection and Tracking</h3>
+				<p>TODO: talk about yolo and strongsort</p>
+				<h3>3. Combining MOT and Binaural Sound Synthesis</h3>
+				<p>TODO: explain how the sound synthesizer and the object tracker where combined.</p>
+				<h3> Demo and Results</h3>
+				
+
+				
+			</section>
+			<section>
+				<h3>Sources:</h3>
+				<p>Gardner, B.. “HRTF Measurements of a KEMAR Dummy-Head Microphone.” (1994).</p>
+			</section>
+
+		</div>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<section class="split contact">
+				
+				<section>
+					<h3>Social</h3>
+					<ul class="icons">
+						<li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+					</ul>
+				</section>
+			</section>
+		</footer>
+
+		<!-- Copyright -->
+		<div id="copyright">
+			<ul>
+				<li>&copy; Untitled</li>
+				<li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</div>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
