@@ -7,7 +7,7 @@
 <html>
 
 <head>
-	<title>Generic Page - Massively by HTML5 UP</title>
+	<title>See with Your Ears</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="assets/css/main.css" />
@@ -60,7 +60,6 @@
 						recent object detection and localization algorithms to enable a visually impaired person to hear
 						their environment. The idea here is to give each object a specific sound.</p>
 				</header>
-				<div class="image main"><img src="images/pic01.jpg" alt="" /></div>
 				<p>The human brain is able to localize a sound source by utilizing auditory cues such as differences in timing and intensities.
 				   These cues depend on many parameters such as the shape and size of the ear and the head. 
 				   One way of capturing sound without losing these cues is binaural recording. Although it is now more than 15 years old, 
@@ -82,12 +81,23 @@
 				where $hrir^{left/right}_{\theta, \phi}(t)$ is impulse response resulting from an impulse coming from the direction defined by $\theta, \phi$.
 				<p>
 				   In this porject we use the HRIR dataset 
-				   <a href="https://sound.media.mit.edu/resources/KEMAR.html">"HRTF Measurements of a KEMAR Dummy-Head Microphone"</a> provided by MIT media Lab.  	
+				   <a href="https://sound.media.mit.edu/resources/KEMAR.html">"HRTF Measurements of a KEMAR Dummy-Head Microphone"</a> 
+				   provided by MIT media Lab. This dataset contains the HRIR sampled with $5^{\circ}$ azimuth and $10^{\circ}$ elevation angles.
 				</p>
+				<p>The process of spatializing a sound boils to localizing the sound source, 
+					determining its elevation and azimuth angles and getting the corresponding HRIR signal from the dataset.
+					Since the dataset only contains HRIR signals sampled at certain directions, an interpolation is necessary.  
+				</p>
+
 				<h3>2. Object Detection and Tracking</h3>
-				<p>TODO: talk about yolo and strongsort</p>
+				For detecting objects and tracking them we use the combination of YOLOv5 and StrongSORT described 
+				<a href="https://github.com/mikel-brostrom/Yolov5_StrongSORT_OSNet">in this repository</a>. 
+				The tracker is used with little modification (only converted into a class for usability and stripped down of stuff that we don't need here).				
+				The center of the detected bounding box of each object is convert into azimuth and elevation angles.
+				The detections (object IDs corresponding class ID, azimuth and elevation) are passed to the sound synthesizer.
 				<h3>3. Combining MOT and Binaural Sound Synthesis</h3>
 				<p>TODO: explain how the sound synthesizer and the object tracker were combined.</p>
+				
 				<h3> Demo and Results</h3>
 				
 
