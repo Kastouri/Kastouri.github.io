@@ -53,60 +53,38 @@
 			<section class="post">
 				<header class="major">
 					<span class="date">November 15, 2022</span>
-					<h2><a href="animatronic_eye.html">Animatronic Eye:<br />
-							Combining object detection and binaural sound</a></h2>
-					<p>Humans have the amazing ability to localize sound sources around them.
-						In this project, I am trying to find out if this abiliy can be combined with
-						recent object detection and localization algorithms to enable a visually impaired person to hear
-						their environment. The idea here is to give each object a specific sound.</p>
+					<h2><a href="animatronic_eye.html">Animatronic Eye</a></h2>
+					
 				</header>
-				<p>The human brain is able to localize a sound source by utilizing auditory cues such as differences in timing and intensities.
-				   These cues depend on many parameters such as the shape and size of the ear and the head. 
-				   One way of capturing sound without losing these cues is binaural recording. Although it is now more than 15 years old, 
-				   <a href="https://www.youtube.com/watch?v=IUDTlvagjJA">this demo</a> is the best binaural sound recording I have come across. 
-				   Essentially, it is an immersive auditory virtual environment, simulating a barbershop (make sure you use stereo headphones). 
-				</p>
-				<p>If you are still not convinced that, at least in theory, converting visual information into auditory information by using the human sound localization ability, 
-					watch <a href="https://www.youtube.com/watch?v=08smCjKWNL0">this video</a> by Be Smart, 
-					which shows that many visually impaired people learn to use auditory cues to navigate their environment.</p>
-				<h3>1. Mathematical Modeling of Binaural Sound</h3>
-				<p>The question is now, how to make a "normal" sound recording sound like it is coming from a certain location in space?<br/>
-				   We are lucky since there are many datasets containing the <b>Head-related Impus Response</b> or the <b>Head Related Transfer Function (HRTF)</b> in various settings. 
-				   HRTF is the Fourier Transformation of the HRIR. They are functions that describe how properties such as the shape and size of the ear and head modify the sounds to sounds that we hear. <br/>
-				  So given a (mono) sound signal $s(t)$ coming from a direction, with the elevation $\theta$ and azimuth $\phi$ relative to the head, 
-				  the left and right channels of a perceived sound can be calculated as follows:
-				  $$s^{left}_{\text{percieved}} = hrir^{left}_{\theta, \phi}(t) * s(t) $$  
-				  $$s^{right}_{\text{percieved}} = hrir^{right}_{\theta, \phi}(t) * s(t) $$  
-				</p>
-				where $hrir^{left/right}_{\theta, \phi}(t)$ is impulse response resulting from an impulse coming from the direction defined by $\theta, \phi$.
 				<p>
-				   In this porject we use the HRIR dataset 
-				   <a href="https://sound.media.mit.edu/resources/KEMAR.html">"HRTF Measurements of a KEMAR Dummy-Head Microphone"</a> 
-				   provided by MIT media Lab. This dataset contains the HRIR sampled with $5^{\circ}$ azimuth and $10^{\circ}$ elevation angles.
-				</p>
-				<p>The process of spatializing a sound boils to localizing the sound source, 
-					determining its elevation and azimuth angles and getting the corresponding HRIR signal from the dataset.
-					Since the dataset only contains HRIR signals sampled at certain directions, an interpolation is necessary.  
-				</p>
+                    Te goal of this project is to design and build an animatronic eye which is mostly 3D-printable and 
+                    equip it with a camera. The images taken by the camera will than be analyzed in order to animate the eye interactively, 
+                    giving the impression that it is alive .    
+                </p>
+				
+                <h3>2. Mechanical Design</h3>
+				My main focus designing the animatronic eye was to make it almost completely 3D printable since I on had a 3D printer, motors and M3 screws.  
+                I was also testing blender precision modeling capabilities. 
 
-				<h3>2. Object Detection and Tracking</h3>
-				For detecting objects and tracking them we use the combination of YOLOv5 and StrongSORT described 
-				<a href="https://github.com/mikel-brostrom/Yolov5_StrongSORT_OSNet">in this repository</a>. 
-				The tracker is used with little modification (only converted into a class for usability and stripped down of stuff that we don't need here).				
-				The center of the detected bounding box of each object is convert into azimuth and elevation angles.
-				The detections (object IDs corresponding class ID, azimuth and elevation) are passed to the sound synthesizer.
-				<h3>3. Combining MOT and Binaural Sound Synthesis</h3>
-				<p>TODO: explain how the sound synthesizer and the object tracker were combined.</p>
+                Designing the eye with two controllable angles without mounting one motor on the eye was the tricky part.  
+                I solved this by adding further moving parts between the servo motors and the eyeball as shown below.
+
+                Initially I was printing the eye in a single job with the parts already mounted together. 
+                I quickly learned how easily 3D-printed parts brake and redesigned the eye in a way that individual parts that brake can be easily replaced.
+
+                I chose to mount a camera inside of the eyeball in order to increase the field of view and make interactive animations of the eye easier 
+                (since computing the direction of detected objects relative to the eye in the camera images 
+                is easier if the camera points in the same direction). 
+                My most< current design is shown below. 
+
+                <a href="animatronic_eye.html"><img width="800" height="640"  src="images/eye.jpg" alt="" /></a>
+
+
+				<h3>2. Animating the Eye (WIP)</h3>
+				The eye will be able to detect and track objects using YOLOv8 running on a raspberry pi which also controls the servomotors.
 				
-				<h3> Demo and Results</h3>
-				Small demo with on object. Make sure to use stereo audio. (KAPWNG was used to merge the recorded frames and the synthesized audio) 
-				
-				<iframe width="800" height="800" src="https://www.youtube.com/embed/RFfkQccBMcg" title="single object demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-			</section>
-			<section>
-				<h3>Sources:</h3>
-				<p>Gardner, B.. “HRTF Measurements of a KEMAR Dummy-Head Microphone.” (1994).</p>
-			</section>
+			
+            </section>
 
 		</div>
 
