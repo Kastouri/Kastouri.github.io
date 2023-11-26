@@ -1,0 +1,117 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<title>A Simple 4 DOF Robotic Arm</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	  </script>
+	  <script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+		  tex2jax: {
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			inlineMath: [['$','$']]
+		  }
+		});
+	  </script>
+	  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> 
+</head>
+
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Nav -->
+		<!-- Nav -->
+		<nav id="nav">
+			<ul class="links">
+				<li><a href="index.html">Home</a></li>
+				<li class=><a href="about.html">About</a></li>
+			</ul>
+			<ul class="icons">
+				<li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+				<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+			</ul>
+		</nav>
+
+		<!-- Main -->
+		<div id="main">
+
+			<!-- Post -->
+			<section class="post">
+				<header class="major">
+					<h2><a href="robotic_arm.html">A Simple 4 DOF Robotic Arm</a></h2>
+					
+				</header>
+				<p>
+                    A simple 3D printed robot arm (modified version of the <a href="https://mmmarinho.github.io/UMIRobot/">UMIRobot</a>). The control of the arm is done using a simple implementation of an inverse jacobian controller. 
+                </p>
+				<img width="800" height="640"  src="images/arm_bullet.gif" alt="" />
+				
+                <h3>1. Mechanical design</h3>
+				This arm is a simple modified version of the 5 DOF <a href="https://mmmarinho.github.io/UMIRobot/">UMIRobot</a>. 
+				Since I didn't have enough motors, I welded two joints in blender instead of having a motor linking them. 
+				<img width="640" height="800"  src="images/arm.jpg" alt="" />
+				
+				
+				<h3>2. Controller design</h3>
+				The arm is controlled using a jacobian-based controller with velocity constrains. 
+				A thorough explanation of the theory can be fond  <a href="https://manipulation.csail.mit.edu/pick.html#diff_ik_w_constraints">here</a>.
+				
+				<h3>3. Simulation</h3>
+				 I used phobos to generate a urdf file for the arm, which I used to simulate the arm in pybullet.
+
+				<h3>4. Adding intelligence: TODO</h3>
+				
+            </section>
+
+		</div>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<section class="split contact">
+				
+				<section>
+					<h3>Social</h3>
+					<ul class="icons">
+						<li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+					</ul>
+				</section>
+			</section>
+		</footer>
+
+		<!-- Copyright -->
+		<div id="copyright">
+			<ul>
+				<li>&copy; Untitled</li>
+				<li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+			</ul>
+		</div>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

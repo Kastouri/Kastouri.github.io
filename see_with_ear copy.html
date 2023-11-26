@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+
+<head>
+	<title>See with Your Ears</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<noscript>
+		<link rel="stylesheet" href="assets/css/noscript.css" />
+	</noscript>
+	<script type="text/x-mathjax-config">
+		MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	  </script>
+	  <script type="text/x-mathjax-config">
+		MathJax.Hub.Config({
+		  tex2jax: {
+			skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+			inlineMath: [['$','$']]
+		  }
+		});
+	  </script>
+	  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script> 
+</head>
+
+<body class="is-preload">
+
+	<!-- Wrapper -->
+	<div id="wrapper">
+
+		<!-- Nav -->
+		<!-- Nav -->
+		<nav id="nav">
+			<ul class="links">
+				<li><a href="index.html">Home</a></li>
+				<li class=><a href="about.html">About</a></li>
+			</ul>
+			<ul class="icons">
+				<li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+				<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+			</ul>
+		</nav>
+
+		<!-- Main -->
+		<div id="main">
+
+			<!-- Post -->
+			<section class="post">
+				<header class="major">
+					<h2><a href="see_with_ear.html">See with your ears:<br />
+							Combining object detection and binaural sound</a></h2>
+					<p>Humans have the amazing ability to localize sound sources around them.
+						In this project, I am trying to find out if this abiliy can be combined with
+						recent object detection and localization algorithms to enable a visually impaired person to hear
+						their environment. The idea here is to give each object a specific sound.</p>
+				</header>
+				<p>The human brain is able to localize a sound source by utilizing auditory cues such as differences in timing and intensities.
+				   These cues depend on many parameters such as the shape and size of the ear and the head. 
+				   One way of capturing sound without losing these cues is binaural recording. Although it is now more than 15 years old, 
+				   <a href="https://www.youtube.com/watch?v=IUDTlvagjJA">this demo</a> is the best binaural sound recording I have come across. 
+				   Essentially, it is an immersive auditory virtual environment, simulating a barbershop (make sure you use stereo headphones). 
+				</p>
+				<p>If you are still not convinced that, at least in theory, converting visual information into auditory information by using the human sound localization ability, 
+					watch <a href="https://www.youtube.com/watch?v=08smCjKWNL0">this video</a> by Be Smart, 
+					which shows that many visually impaired people learn to use auditory cues to navigate their environment.</p>
+					<h3> Demo and Results</h3>
+					Small demo with one object. Make sure to  listen to the video using a headset with stereo audio enabled. 
+					The binaural audio generation runs in real-time. The video shown below was captured by and ESP32-CAM setup as a web server.
+					KAPWNG was used to merge the recorded frames and the synthesized audio for the sake of this demo. 
+					
+					<iframe width="800" height="800" src="https://www.youtube.com/embed/RFfkQccBMcg" title="single object demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				
+				
+					<h3>1. Mathematical Modeling of Binaural Sound</h3>
+				<p>The question is now, how to make a "normal" sound recording sound like it is coming from a certain location in space?<br/>
+				   We are lucky since there are many datasets containing the <b>Head-related Impus Response</b> or the <b>Head Related Transfer Function (HRTF)</b> in various settings. 
+				   HRTF is the Fourier Transformation of the HRIR. They are functions that describe how properties such as the shape and size of the ear and head modify the sounds to sounds that we hear. <br/>
+				  So given a (mono) sound signal $s(t)$ coming from a direction, with the elevation $\theta$ and azimuth $\phi$ relative to the head, 
+				  the left and right channels of a perceived sound can be calculated as follows:
+				  $$s^{left}_{\text{percieved}} = hrir^{left}_{\theta, \phi}(t) * s(t) $$  
+				  $$s^{right}_{\text{percieved}} = hrir^{right}_{\theta, \phi}(t) * s(t) $$  
+				</p>
+				where $hrir^{left/right}_{\theta, \phi}(t)$ is impulse response resulting from an impulse coming from the direction defined by $\theta, \phi$.
+				<p>
+				   In this porject I used the HRIR dataset 
+				   <a href="https://sound.media.mit.edu/resources/KEMAR.html">"HRTF Measurements of a KEMAR Dummy-Head Microphone"</a> 
+				   provided by MIT media Lab. This dataset contains the HRIR sampled with $5^{\circ}$ azimuth and $10^{\circ}$ elevation angles.
+				</p>
+				<p>The process of spatializing a sound boils to localizing the sound source, 
+					determining its elevation and azimuth angles and getting the corresponding HRIR signal from the dataset.
+					Since the dataset only contains HRIR signals sampled at certain directions, an interpolation is necessary.  
+				</p>
+
+				<h3>2. Object Detection and Tracking</h3>
+				For detecting objects and tracking them I used a combination of YOLOv8 and StrongSORT as described 
+				<a href="https://github.com/mikel-brostrom/Yolov5_StrongSORT_OSNet">in this repository</a>. 
+				The tracker is used with little modification (only converted into a class for usability and stripped down of stuff that we don't need here).				
+				The center of the detected bounding box of each object is convert into azimuth and elevation angles.
+				The detections (object IDs corresponding class ID, azimuth and elevation) are passed to the sound synthesizer.
+				<h3>3. Combining MOT and Binaural Sound Synthesis</h3>
+				<p>TODO: explain how the sound synthesizer and the object tracker were combined.</p>
+				
+			
+			</section>
+
+			<section>
+				<h3>Sources:</h3>
+				<p>Gardner, B.. “HRTF Measurements of a KEMAR Dummy-Head Microphone.” (1994).</p>
+			</section>
+
+		</div>
+
+		<!-- Footer -->
+		<footer id="footer">
+			<section class="split contact">
+				
+				<section>
+					<h3>Social</h3>
+					<ul class="icons">
+						<li><a href="#" class="icon brands fa-linkedin"><span class="label">LinkedIn</span></a></li>
+						<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+					</ul>
+				</section>
+			</section>
+		</footer>
+
+		<!-- Copyright -->
+		<div id="copyright">
+			<ul>
+				<li>&copy; Untitled</li>
+				<li>Design: <a href="https://html5up.net">Modified from HTML5 UP</a></li>
+			</ul>
+		</div>
+
+	</div>
+
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.scrollex.min.js"></script>
+	<script src="assets/js/jquery.scrolly.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

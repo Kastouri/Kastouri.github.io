@@ -52,7 +52,6 @@
 			<!-- Post -->
 			<section class="post">
 				<header class="major">
-					<span class="date">November 15, 2022</span>
 					<h2><a href="see_with_ear.html">See with your ears:<br />
 							Combining object detection and binaural sound</a></h2>
 					<p>Humans have the amazing ability to localize sound sources around them.
@@ -69,7 +68,15 @@
 				<p>If you are still not convinced that, at least in theory, converting visual information into auditory information by using the human sound localization ability, 
 					watch <a href="https://www.youtube.com/watch?v=08smCjKWNL0">this video</a> by Be Smart, 
 					which shows that many visually impaired people learn to use auditory cues to navigate their environment.</p>
-				<h3>1. Mathematical Modeling of Binaural Sound</h3>
+					<h3> Demo and Results</h3>
+					Small demo with one object. Make sure to  listen to the video using a headset with stereo audio enabled. 
+					The binaural audio generation runs in real-time. The video shown below was captured by and ESP32-CAM setup as a web server.
+					KAPWNG was used to merge the recorded frames and the synthesized audio for the sake of this demo. 
+					
+					<iframe width="800" height="800" src="https://www.youtube.com/embed/RFfkQccBMcg" title="single object demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+				
+				
+					<h3>1. Mathematical Modeling of Binaural Sound</h3>
 				<p>The question is now, how to make a "normal" sound recording sound like it is coming from a certain location in space?<br/>
 				   We are lucky since there are many datasets containing the <b>Head-related Impus Response</b> or the <b>Head Related Transfer Function (HRTF)</b> in various settings. 
 				   HRTF is the Fourier Transformation of the HRIR. They are functions that describe how properties such as the shape and size of the ear and head modify the sounds to sounds that we hear. <br/>
@@ -98,12 +105,6 @@
 				<h3>3. Combining MOT and Binaural Sound Synthesis</h3>
 				<p>TODO: explain how the sound synthesizer and the object tracker were combined.</p>
 				
-			<h3> Demo and Results</h3>
-				Small demo with one object. Make sure to  listen to the video using a headset with stereo audio enabled. 
-                The binaural audio generation runs in real-time. The video shown below was captured by and ESP32-CAM setup as a web server.
-                KAPWNG was used to merge the recorded frames and the synthesized audio for the sake of this demo. 
-				
-				<iframe width="800" height="800" src="https://www.youtube.com/embed/RFfkQccBMcg" title="single object demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 			
 			</section>
 
@@ -132,7 +133,7 @@
 		<div id="copyright">
 			<ul>
 				<li>&copy; Untitled</li>
-				<li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+				<li>Design: <a href="https://html5up.net">Modified from HTML5 UP</a></li>
 			</ul>
 		</div>
 
